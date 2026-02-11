@@ -1,1 +1,110 @@
-<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>Valentine's Day Celebration</title>\n    <style>\n        body { \n            display: flex; \n            justify-content: center; \n            align-items: center; \n            height: 100vh; \n            background-color: #ffcccb; \n            overflow: hidden; \n        }\n        .heart { \n            width: 50px; \n            height: 50px; \n            background: red; \n            position: absolute; \n            transform: rotate(45deg); \n            animation: float 3s ease-in infinite; \n        }\n        .heart::before,\n        .heart::after { \n            content: ""; \n            width: 50px; \n            height: 50px; \n            background: red; \n            border-radius: 50%; \n            position: absolute; \n        }\n        .heart::before { \n            top: -25px; \n            left: 0; \n        }\n        .heart::after { \n            left: 25px; \n        }\n        @keyframes float { \n            0%, 100% { transform: translateY(0); }\n            50% { transform: translateY(-20px); }\n        }\n        .no-button { \n            position: absolute; \n            bottom: 10px; \n            left: 50%; \n            transform: translateX(-50%); \n            padding: 10px 20px; \n            background-color: #f00; \n            color: #fff; \n            border: none; \n            cursor: pointer; \n        }\n        .celebration { \n            display: none; \n            position: absolute; \n            top: 50%; \n            left: 50%; \n            transform: translate(-50%, -50%); \n            text-align: center; \n            font-size: 2em; \n        }\n        .confetti { \n            position: absolute; \n            width: 10px; \n            height: 10px; \n            background: yellow; \n            animation: fall 3s infinite; \n        }\n        @keyframes fall { \n            0% { transform: translateY(0); } \n            100% { transform: translateY(100vh); } \n        }\n    </style>\n</head>\n<body>\n\n    <div class="heart"></div>\n    <button class="no-button" onclick="celebrate()">No</button>\n    <div class="celebration">Happy Valentine's Day!</div>\n\n    <script>\n        function celebrate() {\n            document.querySelector('.celebration').style.display = 'block';\n            for(let i = 0; i < 100; i++) {\n                let confetti = document.createElement('div');\n                confetti.classList.add('confetti');\n                confetti.style.left = Math.random() * 100 + 'vw';\n                document.body.appendChild(confetti);\n            }\n        }\n    <\/script>\n\n</body>\n</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ff4e8a, #ff9a9e);
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    text-align: center;
+}
+
+.container {
+    position: relative;
+}
+
+h1 {
+    font-size: 60px;
+    color: white;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+}
+
+.heart {
+    font-size: 80px;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+button {
+    font-size: 22px;
+    padding: 15px 40px;
+    margin: 10px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#yesBtn {
+    background-color: #fff;
+    color: #ff4e8a;
+}
+
+#yesBtn:hover {
+    background-color: #ffe6ef;
+}
+
+#noBtn {
+    background-color: #ff1744;
+    color: white;
+    position: absolute;
+}
+
+#message {
+    font-size: 40px;
+    color: white;
+    margin-top: 30px;
+    display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="heart">❤️</div>
+    <h1>Will You Be My Valentine?</h1>
+    <button id="yesBtn">Yes 💖</button>
+    <button id="noBtn">No 😢</button>
+    <div id="message">Yayyyyy!! 💕🥰</div>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const message = document.getElementById("message");
+
+// Make "No" button run away
+function moveButton() {
+    const x = Math.floor(Math.random() * (window.innerWidth - noBtn.offsetWidth));
+    const y = Math.floor(Math.random() * (window.innerHeight - noBtn.offsetHeight));
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("click", moveButton);
+
+// Yes button action
+yesBtn.addEventListener("click", function() {
+    message.style.display = "block";
+    noBtn.style.display = "none";
+    yesBtn.style.display = "none";
+});
+</script>
+
+</body>
+</html
