@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day Interactive Page</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ff88bb, #fff);
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 4em;
+            text-align: center;
+            color: #d5006d;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translatey(0); }
+            50% { transform: translatey(-20px); }
+        }
+        .heart {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            animation: float 5s ease-in-out infinite;
+        }
+        .yes, .no {
+            padding: 10px 20px;
+            margin: 20px;
+            font-size: 1.5em;
+            border: none;
+            cursor: pointer;
+        }
+        .yes {
+            background-color: #76ff03;
+        }
+        .no {
+            background-color: #ff3d00;
+        }
+        .no:hover {
+            position: relative;
+            animation: dodge 0.5s infinite;
+            animation-direction: alternate;
+        }
+        @keyframes dodge {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(20px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="heart"></div>
+    <h1>Will You Be My Valentine?</h1>
+    <button class="yes" onclick="celebrate()">Yes</button>
+    <button class="no">No</button>
+    <script>
+        function celebrate() {
+            // Trigger confetti effect
+            alert('🎉 Yay! Let the celebration begin! 🎉');
+        }
+    </script>
+</body>
+</html>
