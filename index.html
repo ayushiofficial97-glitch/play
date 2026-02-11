@@ -6,105 +6,202 @@
 <title>Be My Valentine ❤️</title>
 
 <style>
-body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #ff4e8a, #ff9a9e);
-    font-family: Arial, sans-serif;
-    overflow: hidden;
-    text-align: center;
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;}
+
+body{
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#ff6fa5,#ff9ecf);
+position:relative;
 }
 
-.container {
-    position: relative;
+/* Floating Hearts Background */
+.floating-heart{
+position:absolute;
+bottom:-50px;
+font-size:20px;
+color:rgba(255,255,255,0.5);
+animation:floatUp linear infinite;
+}
+@keyframes floatUp{
+0%{transform:translateY(0) scale(1);opacity:1;}
+100%{transform:translateY(-110vh) scale(1.5);opacity:0;}
 }
 
-h1 {
-    font-size: 60px;
-    color: white;
-    margin-bottom: 40px;
-    text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+/* Main Container */
+.container{
+text-align:center;
+z-index:2;
 }
 
-.heart {
-    font-size: 80px;
-    animation: pulse 1s infinite;
+/* Big Beating Heart */
+.big-heart{
+font-size:clamp(70px,10vw,120px);
+animation:heartbeat 1s infinite;
+}
+@keyframes heartbeat{
+0%{transform:scale(1);}
+25%{transform:scale(1.2);}
+50%{transform:scale(1);}
+75%{transform:scale(1.2);}
+100%{transform:scale(1);}
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-    100% { transform: scale(1); }
+/* Main Title */
+h1{
+color:#c2185b;
+font-size:clamp(28px,6vw,60px);
+margin:20px 0 40px;
+font-weight:900;
 }
 
-button {
-    font-size: 22px;
-    padding: 15px 40px;
-    margin: 10px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: 0.3s;
+/* Buttons */
+button{
+padding:15px 35px;
+font-size:clamp(16px,3vw,22px);
+border:none;
+border-radius:40px;
+cursor:pointer;
+margin:10px;
+transition:0.3s ease;
 }
 
-#yesBtn {
-    background-color: #fff;
-    color: #ff4e8a;
+#yesBtn{
+background:white;
+color:#c2185b;
+font-weight:bold;
+}
+#yesBtn:hover{
+transform:scale(1.2);
 }
 
-#yesBtn:hover {
-    background-color: #ffe6ef;
+#noBtn{
+background:#ff1744;
+color:white;
+position:absolute;
 }
 
-#noBtn {
-    background-color: #ff1744;
-    color: white;
-    position: absolute;
+/* Celebration Screen */
+.celebration{
+position:absolute;
+top:0;left:0;
+width:100%;height:100%;
+background:linear-gradient(135deg,#ff6fa5,#ff9ecf);
+display:none;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+z-index:5;
+padding:20px;
 }
 
-#message {
-    font-size: 40px;
-    color: white;
-    margin-top: 30px;
-    display: none;
+/* Celebration Text */
+.celebration h1{
+font-size:clamp(24px,4vw,48px);
+white-space:nowrap;
+color:white;
+}
+.subtitle{
+font-size:clamp(18px,3vw,32px);
+font-weight:bold;
+color:white;
+white-space:nowrap;
+margin-top:10px;
+}
+.love{
+font-size:clamp(16px,2.8vw,26px);
+font-weight:bold;
+color:white;
+white-space:nowrap;
+margin-top:10px;
+}
+
+/* Confetti Hearts */
+.confetti{
+position:absolute;
+top:-20px;
+font-size:24px;
+animation:fall 3s linear forwards;
+}
+@keyframes fall{
+to{
+transform:translateY(110vh) rotate(360deg);
+opacity:0;
+}
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-    <div class="heart">❤️</div>
-    <h1>Will You Be My Valentine?</h1>
-    <button id="yesBtn">Yes 💖</button>
-    <button id="noBtn">No 😢</button>
-    <div id="message">Yayyyyy!! 💕🥰</div>
+<!-- Floating Hearts -->
+<script>
+for(let i=0;i<30;i++){
+let heart=document.createElement("div");
+heart.className="floating-heart";
+heart.innerHTML="❤️";
+heart.style.left=Math.random()*100+"vw";
+heart.style.animationDuration=(5+Math.random()*5)+"s";
+heart.style.fontSize=(15+Math.random()*25)+"px";
+document.body.appendChild(heart);
+}
+</script>
+
+<div class="container" id="mainContent">
+<div class="big-heart">❤️</div>
+<h1>Will You Be My Valentine?</h1>
+<button id="yesBtn">Yes 💖</button>
+<button id="noBtn">No 😢</button>
+</div>
+
+<!-- Celebration Screen -->
+<div class="celebration" id="celebration">
+<h1>Yay! Happy Valentine's Day!</h1>
+<div class="subtitle">You Make Me the Happiest, Baby!</div>
+<div class="love">I Love You ❤️</div>
 </div>
 
 <script>
-const noBtn = document.getElementById("noBtn");
-const yesBtn = document.getElementById("yesBtn");
-const message = document.getElementById("message");
+const noBtn=document.getElementById("noBtn");
+const yesBtn=document.getElementById("yesBtn");
+const celebration=document.getElementById("celebration");
+const mainContent=document.getElementById("mainContent");
 
-// Make "No" button run away
-function moveButton() {
-    const x = Math.floor(Math.random() * (window.innerWidth - noBtn.offsetWidth));
-    const y = Math.floor(Math.random() * (window.innerHeight - noBtn.offsetHeight));
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
-noBtn.addEventListener("mouseover", moveButton);
-noBtn.addEventListener("click", moveButton);
+/* Make No button escape */
+function moveButton(){
+const x=Math.random()*(window.innerWidth-noBtn.offsetWidth);
+const y=Math.random()*(window.innerHeight-noBtn.offsetHeight);
+noBtn.style.left=x+"px";
+noBtn.style.top=y+"px";
+}
+noBtn.addEventListener("mouseover",moveButton);
+noBtn.addEventListener("touchstart",moveButton);
 
-// Yes button action
-yesBtn.addEventListener("click", function() {
-    message.style.display = "block";
-    noBtn.style.display = "none";
-    yesBtn.style.display = "none";
+/* Yes Button Celebration */
+yesBtn.addEventListener("click",()=>{
+mainContent.style.display="none";
+celebration.style.display="flex";
+startConfetti();
 });
+
+/* Confetti Rain */
+function startConfetti(){
+for(let i=0;i<80;i++){
+let conf=document.createElement("div");
+conf.className="confetti";
+conf.innerHTML=["❤️","💖","💕","💘","🥰","😍"][Math.floor(Math.random()*6)];
+conf.style.left=Math.random()*100+"vw";
+conf.style.animationDuration=(2+Math.random()*2)+"s";
+conf.style.fontSize=(18+Math.random()*20)+"px";
+document.body.appendChild(conf);
+setTimeout(()=>conf.remove(),3000);
+}
+}
 </script>
 
 </body>
-</html
+</html>
